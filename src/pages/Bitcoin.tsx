@@ -8,6 +8,7 @@ import { History } from '../types/History';
 import { Box, MenuItem, Paper, Select } from '@mui/material';
 import { AreaSeries, ArgumentAxis, Chart, ValueAxis } from '@devexpress/dx-react-chart-material-ui';
 import { Animation } from '@devexpress/dx-react-chart';
+import { SelectChangeEvent } from '@mui/material/Select/SelectInput';
 
 const Root = styled('div')``;
 
@@ -53,7 +54,7 @@ const Bitcoin = () => {
                 <Select
                     sx={{ mr: '20px' }}
                     value={currency}
-                    onChange={(e: any) => {
+                    onChange={(e: SelectChangeEvent) => {
                         setCurrency(e.target.value);
                     }}>
                     {Object.keys(Currency).map((currency: string) => {
