@@ -5,7 +5,7 @@ import axios from 'axios';
 import { BackendUrl } from '../Constants';
 import { Currency } from '../types/Currency';
 import { History } from '../types/History';
-import { Box, MenuItem, Paper, Select } from '@mui/material';
+import { Alert, Box, MenuItem, Paper, Select, Snackbar } from '@mui/material';
 import { AreaSeries, ArgumentAxis, Chart, ValueAxis } from '@devexpress/dx-react-chart-material-ui';
 import { Animation } from '@devexpress/dx-react-chart';
 import { SelectChangeEvent } from '@mui/material/Select/SelectInput';
@@ -22,17 +22,34 @@ const Bitcoin = () => {
     const [currency, setCurrency] = useState<string>(Currency.USD);
     const [history, setHistory] = useState<History>();
     const [chartData, setChartData] = useState<ChartData[]>([]);
+    const [error, setError] = useState<string | null>(null);
+
+    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setError(null);
+    };
 
     useEffect(() => {
         const fetchCurrentPrice = async () => {
             const response = await axios.get(`${BackendUrl}/currentprice/${currency}.json`);
-            setCurrentPrice(response.data);
+            if (response.status !== 200) {
+                setError('Invalid response!');
+            } else {
+                setCurrentPrice(response.data);
+            }
         };
         fetchCurrentPrice();
 
         const fetchHistory = async () => {
             const response = await axios.get(`${BackendUrl}/historical/close.json?currency=${currency}`);
-            setHistory(response.data);
+            if (response.status !== 200) {
+                setError('Invalid response!');
+            } else {
+                setHistory(response.data);
+            }
         };
         fetchHistory();
     }, [currency]);
@@ -50,6 +67,15 @@ const Bitcoin = () => {
 
     return (
         <Root>
+            <Snackbar
+                open={!!error}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    {error}
+                </Alert>
+            </Snackbar>
             <Box sx={{ mb: '20px', mt: '20px' }}>
                 <Select
                     sx={{ mr: '20px' }}
