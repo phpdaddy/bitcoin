@@ -11,7 +11,7 @@ const App = () => {
         <Root>
             <Container maxWidth="md">
                 <Routes>
-                    <Route path="/" element={<Navigate to="/users" />} />
+                    <Route path="/" element={<Navigate to="/bitcoin" />} />
                     <Route path="/bitcoin" element={<Bitcoin />} />
                 </Routes>
             </Container>

@@ -1,4 +1,4 @@
-export interface BitcoinRate {
+export interface CurrentPrice {
     time: {
         updated: string;
         updatedISO: string;

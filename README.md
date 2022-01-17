@@ -1,4 +1,4 @@
-# POSTS 
+# BITCOIN 
 ### Scripts
 #### `yarn`
 #### `yarn start`
