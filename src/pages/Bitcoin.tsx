@@ -13,7 +13,7 @@ import { SelectChangeEvent } from '@mui/material/Select/SelectInput';
 const Root = styled('div')``;
 
 interface ChartData {
-    date: string;
+    day: string;
     rate: number;
 }
 
@@ -40,8 +40,8 @@ const Bitcoin = () => {
     useEffect(() => {
         if (history?.bpi) {
             setChartData(
-                Object.keys(history.bpi).map((date) => ({
-                    date,
+                Object.keys(history.bpi).map((date, index) => ({
+                    day: (index + 1).toString(),
                     rate: history.bpi[date as string],
                 }))
             );
@@ -70,10 +70,10 @@ const Bitcoin = () => {
             </Box>
             <Paper>
                 <Chart data={chartData}>
-                    <ArgumentAxis showLabels={false} />
+                    <ArgumentAxis showLabels={true} />
                     <ValueAxis />
 
-                    <AreaSeries name="History" valueField="rate" argumentField="date" />
+                    <AreaSeries name="History" valueField="rate" argumentField="day" />
                     <Animation />
                 </Chart>
             </Paper>
