@@ -13,10 +13,10 @@ jest.mock('@devexpress/dx-react-chart-material-ui', () => ({
 
 jest.mock('axios');
 
-describe('App', () => {
+describe('Bitcoin', () => {
     const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-    test('renders App component', async () => {
+    test('renders Bitcoin component with normal response', async () => {
         (mockedAxios.get as jest.Mock)
             .mockResolvedValueOnce({
                 data: {
@@ -95,7 +95,7 @@ describe('App', () => {
         });
     });
 
-    test('renders App component', async () => {
+    test('renders Bitcoin component with error', async () => {
         (axios.get as jest.Mock)
             .mockResolvedValueOnce({
                 status: 500,
