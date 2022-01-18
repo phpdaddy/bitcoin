@@ -72,7 +72,7 @@ const Bitcoin = () => {
                 autoHideDuration={6000}
                 onClose={handleClose}
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
-                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }} data-testid="alert">
                     {error}
                 </Alert>
             </Snackbar>
@@ -92,7 +92,7 @@ const Bitcoin = () => {
                         );
                     })}
                 </Select>
-                {currentPrice?.bpi[currency as string]?.rate}
+                <span data-testid="currentPrice">{currentPrice?.bpi[currency as string]?.rate}</span>
             </Box>
             <Paper>
                 <Chart data={chartData}>
